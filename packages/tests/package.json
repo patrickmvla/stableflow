@@ -1,0 +1,22 @@
+{
+	"name": "@stableflow/tests",
+	"version": "0.0.1",
+	"type": "module",
+	"dependencies": {
+		"@stableflow/shared": "workspace:*",
+		"@stableflow/ledger": "workspace:*",
+		"@stableflow/accounts": "workspace:*",
+		"@stableflow/payments": "workspace:*",
+		"@stableflow/settlement": "workspace:*",
+		"@stableflow/products": "workspace:*",
+		"@stableflow/auth": "workspace:*",
+		"@stableflow/events": "workspace:*",
+		"@stableflow/api": "workspace:*",
+		"drizzle-orm": "catalog:",
+		"postgres": "catalog:"
+	},
+	"devDependencies": {
+		"@types/bun": "catalog:",
+		"typescript": "catalog:"
+	}
+}
