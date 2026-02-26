@@ -1,0 +1,23 @@
+{
+	"name": "@stableflow/web",
+	"version": "0.0.1",
+	"type": "module",
+	"scripts": {
+		"dev": "next dev --port 3457",
+		"build": "next build",
+		"start": "next start --port 3457"
+	},
+	"dependencies": {
+		"next": "^16",
+		"react": "^19",
+		"react-dom": "^19"
+	},
+	"devDependencies": {
+		"@types/bun": "catalog:",
+		"@types/react": "^19",
+		"@types/react-dom": "^19",
+		"typescript": "catalog:",
+		"tailwindcss": "^4",
+		"@tailwindcss/postcss": "^4"
+	}
+}

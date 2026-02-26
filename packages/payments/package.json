@@ -1,0 +1,17 @@
+{
+	"name": "@stableflow/payments",
+	"version": "0.0.1",
+	"module": "src/index.ts",
+	"type": "module",
+	"dependencies": {
+		"@stableflow/shared": "workspace:*",
+		"@stableflow/ledger": "workspace:*",
+		"@stableflow/accounts": "workspace:*",
+		"drizzle-orm": "catalog:",
+		"postgres": "catalog:"
+	},
+	"devDependencies": {
+		"@types/bun": "catalog:",
+		"typescript": "catalog:"
+	}
+}

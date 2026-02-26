@@ -1,0 +1,15 @@
+{
+	"name": "@stableflow/events",
+	"version": "0.0.1",
+	"module": "src/index.ts",
+	"type": "module",
+	"dependencies": {
+		"@stableflow/shared": "workspace:*",
+		"drizzle-orm": "catalog:",
+		"postgres": "catalog:"
+	},
+	"devDependencies": {
+		"@types/bun": "catalog:",
+		"typescript": "catalog:"
+	}
+}
