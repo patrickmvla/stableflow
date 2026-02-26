@@ -1,8 +1,11 @@
-import type { Database } from "@stableflow/shared";
 import { createAccountHolder, createVirtualAccount } from "@stableflow/accounts";
 import { createAPIKey } from "@stableflow/auth";
+import type { Database } from "@stableflow/shared";
 
-export async function createTestAccount(db: Database, overrides?: { name?: string; email?: string }) {
+export async function createTestAccount(
+	db: Database,
+	overrides?: { name?: string; email?: string },
+) {
 	return createAccountHolder(db, {
 		name: overrides?.name ?? "Test Merchant",
 		email: overrides?.email ?? `test-${Date.now()}@example.com`,

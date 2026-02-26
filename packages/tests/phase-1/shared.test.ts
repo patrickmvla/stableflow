@@ -1,12 +1,12 @@
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import {
-	InvalidAmountError,
 	addAmounts,
 	calculateFee,
 	convertCurrency,
 	formatAmount,
 	fromMinorUnits,
 	generateId,
+	InvalidAmountError,
 	resetConfig,
 	splitAmount,
 	subtractAmounts,

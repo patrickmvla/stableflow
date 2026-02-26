@@ -1,5 +1,4 @@
 import { afterEach, beforeAll, describe, expect, test } from "bun:test";
-import { AccountNotFoundError, ValidationError, ConflictError } from "@stableflow/shared";
 import {
 	createAccountHolder,
 	createVirtualAccount,
@@ -9,10 +8,11 @@ import {
 	listAccountHolders,
 	listVirtualAccounts,
 } from "@stableflow/accounts";
-import { createTestDb, truncateTables } from "../helpers/setup.ts";
-import { verifyGodCheck } from "../helpers/god-check.ts";
-import { createTestAccount } from "../helpers/fixtures.ts";
 import type { Database } from "@stableflow/shared";
+import { AccountNotFoundError, ConflictError, ValidationError } from "@stableflow/shared";
+import { createTestAccount } from "../helpers/fixtures.ts";
+import { verifyGodCheck } from "../helpers/god-check.ts";
+import { createTestDb, truncateTables } from "../helpers/setup.ts";
 
 let db: Database;
 
@@ -43,9 +43,9 @@ describe("createAccountHolder", () => {
 	});
 
 	test("rejects invalid email", async () => {
-		await expect(
-			createAccountHolder(db, { name: "Bad", email: "not-an-email" }),
-		).rejects.toThrow(ValidationError);
+		await expect(createAccountHolder(db, { name: "Bad", email: "not-an-email" })).rejects.toThrow(
+			ValidationError,
+		);
 	});
 
 	test("stores metadata", async () => {

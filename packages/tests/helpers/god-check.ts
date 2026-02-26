@@ -1,5 +1,5 @@
-import type { Database } from "@stableflow/shared";
 import { godCheck } from "@stableflow/ledger";
+import type { Database } from "@stableflow/shared";
 
 export async function verifyGodCheck(db: Database): Promise<void> {
 	const result = await godCheck(db);

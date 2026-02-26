@@ -1,7 +1,4 @@
 import { afterEach, beforeAll, describe, expect, test } from "bun:test";
-import { sql } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/postgres-js";
-import { LedgerImbalanceError, ValidationError } from "@stableflow/shared";
 import {
 	createLedgerAccount,
 	getAllAccounts,
@@ -10,9 +7,12 @@ import {
 	godCheck,
 	postTransaction,
 } from "@stableflow/ledger";
-import { createTestDb, truncateTables } from "../helpers/setup.ts";
-import { verifyGodCheck } from "../helpers/god-check.ts";
 import type { Database } from "@stableflow/shared";
+import { LedgerImbalanceError, ValidationError } from "@stableflow/shared";
+import { sql } from "drizzle-orm";
+import type { drizzle } from "drizzle-orm/postgres-js";
+import { verifyGodCheck } from "../helpers/god-check.ts";
+import { createTestDb, truncateTables } from "../helpers/setup.ts";
 
 let db: Database;
 type DrizzleDb = ReturnType<typeof drizzle>;
@@ -79,9 +79,9 @@ describe("postTransaction", () => {
 	});
 
 	test("rejects transaction with 0 entries", async () => {
-		await expect(
-			postTransaction(db, { description: "Empty", entries: [] }),
-		).rejects.toThrow(ValidationError);
+		await expect(postTransaction(db, { description: "Empty", entries: [] })).rejects.toThrow(
+			ValidationError,
+		);
 	});
 
 	test("rejects transaction with 1 entry", async () => {
@@ -341,8 +341,18 @@ describe("godCheck", () => {
 
 	test("per-currency check works independently", async () => {
 		await createTestLedgerAccounts(db);
-		await createLedgerAccount(db, { id: "test:asset:EUR", name: "Test EUR", type: "asset", currency: "EUR" });
-		await createLedgerAccount(db, { id: "test:liability:EUR", name: "Test EUR Liab", type: "liability", currency: "EUR" });
+		await createLedgerAccount(db, {
+			id: "test:asset:EUR",
+			name: "Test EUR",
+			type: "asset",
+			currency: "EUR",
+		});
+		await createLedgerAccount(db, {
+			id: "test:liability:EUR",
+			name: "Test EUR Liab",
+			type: "liability",
+			currency: "EUR",
+		});
 
 		await postTransaction(db, {
 			description: "USD txn",

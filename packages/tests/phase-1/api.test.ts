@@ -1,7 +1,7 @@
 import { afterAll, afterEach, beforeAll, describe, expect, test } from "bun:test";
-import { createTestDb, truncateTables } from "../helpers/setup.ts";
-import { createTestAccount, createTestAPIKey } from "../helpers/fixtures.ts";
 import type { Database } from "@stableflow/shared";
+import { createTestAccount, createTestAPIKey } from "../helpers/fixtures.ts";
+import { createTestDb, truncateTables } from "../helpers/setup.ts";
 
 // We import the app after setting up env vars
 let db: Database;

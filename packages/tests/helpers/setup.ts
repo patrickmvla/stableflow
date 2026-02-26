@@ -1,7 +1,7 @@
+import type { Database } from "@stableflow/shared";
 import { sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
-import type { Database } from "@stableflow/shared";
 
 const DATABASE_URL = process.env["DATABASE_URL"]!;
 
@@ -51,8 +51,7 @@ export async function truncateTables(db: Database): Promise<void> {
 			break;
 		} catch (err: unknown) {
 			const isDeadlock =
-				(err as any)?.cause?.code === "40P01" ||
-				String((err as any)?.message).includes("deadlock");
+				(err as any)?.cause?.code === "40P01" || String((err as any)?.message).includes("deadlock");
 			if (isDeadlock && attempt < 3) {
 				await new Promise((resolve) => setTimeout(resolve, 100 * attempt));
 				continue;
