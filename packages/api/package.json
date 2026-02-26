@@ -1,0 +1,33 @@
+{
+	"name": "@stableflow/api",
+	"version": "0.0.1",
+	"module": "src/index.ts",
+	"type": "module",
+	"scripts": {
+		"dev": "bun run --hot src/index.ts",
+		"start": "bun run src/index.ts",
+		"db:generate": "drizzle-kit generate",
+		"db:migrate": "drizzle-kit migrate"
+	},
+	"dependencies": {
+		"@stableflow/shared": "workspace:*",
+		"@stableflow/ledger": "workspace:*",
+		"@stableflow/accounts": "workspace:*",
+		"@stableflow/payments": "workspace:*",
+		"@stableflow/settlement": "workspace:*",
+		"@stableflow/products": "workspace:*",
+		"@stableflow/auth": "workspace:*",
+		"@stableflow/events": "workspace:*",
+		"hono": "catalog:",
+		"@hono/zod-openapi": "catalog:",
+		"@scalar/hono-api-reference": "catalog:",
+		"drizzle-orm": "catalog:",
+		"drizzle-kit": "catalog:",
+		"postgres": "catalog:",
+		"zod": "catalog:"
+	},
+	"devDependencies": {
+		"@types/bun": "catalog:",
+		"typescript": "catalog:"
+	}
+}
