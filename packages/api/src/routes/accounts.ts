@@ -1,11 +1,4 @@
-import { OpenAPIHono, createRoute, z } from "@hono/zod-openapi";
-import {
-	AccountIdSchema,
-	CurrencySchema,
-	PaginationSchema,
-	VirtualAccountIdSchema,
-	getDb,
-} from "@stableflow/shared";
+import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
 import {
 	createAccountHolder,
 	createVirtualAccount,
@@ -15,6 +8,13 @@ import {
 	listAccountHolders,
 	listVirtualAccounts,
 } from "@stableflow/accounts";
+import {
+	AccountIdSchema,
+	CurrencySchema,
+	getDb,
+	PaginationSchema,
+	VirtualAccountIdSchema,
+} from "@stableflow/shared";
 
 export const accountsRouter = new OpenAPIHono();
 

@@ -1,6 +1,6 @@
-import { eq, sql } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/postgres-js";
 import { type Database, generateId } from "@stableflow/shared";
+import { eq, sql } from "drizzle-orm";
+import type { drizzle } from "drizzle-orm/postgres-js";
 import { apiKeys, auditLogs } from "./schema.ts";
 
 type DrizzleDb = ReturnType<typeof drizzle>;
@@ -97,11 +97,7 @@ export async function verifyAPIKey(
 ): Promise<APIKeyRecord | null> {
 	const keyHash = await hashKey(plaintextKey);
 
-	const [key] = await d(db)
-		.select()
-		.from(apiKeys)
-		.where(eq(apiKeys.keyHash, keyHash))
-		.limit(1);
+	const [key] = await d(db).select().from(apiKeys).where(eq(apiKeys.keyHash, keyHash)).limit(1);
 
 	if (!key) return null;
 	if (key.revokedAt !== null) return null;
@@ -129,10 +125,7 @@ export async function revokeAPIKey(
 		);
 }
 
-export async function listAPIKeys(
-	db: Database,
-	accountHolderId: string,
-): Promise<APIKeyRecord[]> {
+export async function listAPIKeys(db: Database, accountHolderId: string): Promise<APIKeyRecord[]> {
 	const keys = await d(db)
 		.select({
 			id: apiKeys.id,
@@ -150,17 +143,19 @@ export async function listAPIKeys(
 
 export async function writeAuditLog(db: Database, entry: AuditLogInput): Promise<string> {
 	const id = generateId("aud");
-	await d(db).insert(auditLogs).values({
-		id,
-		actorType: entry.actorType,
-		actorId: entry.actorId,
-		action: entry.action,
-		resourceType: entry.resourceType,
-		resourceId: entry.resourceId,
-		metadata: entry.metadata ?? null,
-		ipAddress: entry.ipAddress ?? null,
-		userAgent: entry.userAgent ?? null,
-		requestId: entry.requestId ?? null,
-	});
+	await d(db)
+		.insert(auditLogs)
+		.values({
+			id,
+			actorType: entry.actorType,
+			actorId: entry.actorId,
+			action: entry.action,
+			resourceType: entry.resourceType,
+			resourceId: entry.resourceId,
+			metadata: entry.metadata ?? null,
+			ipAddress: entry.ipAddress ?? null,
+			userAgent: entry.userAgent ?? null,
+			requestId: entry.requestId ?? null,
+		});
 	return id;
 }

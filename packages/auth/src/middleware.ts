@@ -1,12 +1,8 @@
+import { getDb, logger, UnauthorizedError } from "@stableflow/shared";
 import type { Context, MiddlewareHandler, Next } from "hono";
-import { UnauthorizedError, getDb, logger } from "@stableflow/shared";
 import { verifyAPIKey } from "./service.ts";
 
-const EXCLUDED_PATHS = [
-	"/health",
-	"/docs",
-	"/openapi.json",
-];
+const EXCLUDED_PATHS = ["/health", "/docs", "/openapi.json"];
 
 function isExcluded(path: string): boolean {
 	if (EXCLUDED_PATHS.includes(path)) return true;
@@ -72,10 +68,7 @@ export function securityHeaders(): MiddlewareHandler {
 		_c.res.headers.set("X-Content-Type-Options", "nosniff");
 		_c.res.headers.set("X-Frame-Options", "DENY");
 		_c.res.headers.set("X-XSS-Protection", "0");
-		_c.res.headers.set(
-			"Strict-Transport-Security",
-			"max-age=31536000; includeSubDomains",
-		);
+		_c.res.headers.set("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
 		_c.res.headers.set("Content-Security-Policy", "default-src 'none'");
 	};
 }
@@ -141,10 +134,7 @@ export function errorHandler(): MiddlewareHandler {
 				error: err instanceof Error ? err.message : String(err),
 			});
 
-			return c.json(
-				{ error: { type: "INTERNAL_ERROR", message: "Internal server error" } },
-				500,
-			);
+			return c.json({ error: { type: "INTERNAL_ERROR", message: "Internal server error" } }, 500);
 		}
 	};
 }

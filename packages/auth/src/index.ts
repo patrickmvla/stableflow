@@ -1,3 +1,3 @@
+export * from "./middleware.ts";
 export * from "./schema.ts";
 export * from "./service.ts";
-export * from "./middleware.ts";

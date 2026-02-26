@@ -1,18 +1,20 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
 import { apiReference } from "@scalar/hono-api-reference";
-import { ZodError } from "zod";
 import { apiKeyAuth, rateLimiter, requestTracing, securityHeaders } from "@stableflow/auth";
 import { AppError, getConfig, logger } from "@stableflow/shared";
-import { healthRouter } from "./routes/health.ts";
+import { cors } from "hono/cors";
+import { ZodError } from "zod";
 import { accountsRouter } from "./routes/accounts.ts";
-import { ledgerRouter } from "./routes/ledger.ts";
 import { apiKeysRouter } from "./routes/api-keys.ts";
+import { healthRouter } from "./routes/health.ts";
+import { ledgerRouter } from "./routes/ledger.ts";
 
 const app = new OpenAPIHono();
 
 // Middleware
 app.use("*", requestTracing());
 app.use("*", securityHeaders());
+app.use("*", cors({ origin: ["http://localhost:3457"] }));
 app.use("/api/*", rateLimiter());
 app.use("/api/*", apiKeyAuth());
 

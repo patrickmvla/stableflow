@@ -1,6 +1,6 @@
-import { OpenAPIHono, createRoute, z } from "@hono/zod-openapi";
-import { CurrencySchema, formatAmount, getDb } from "@stableflow/shared";
+import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
 import { getAllAccounts, godCheck } from "@stableflow/ledger";
+import { CurrencySchema, formatAmount, getDb } from "@stableflow/shared";
 
 export const ledgerRouter = new OpenAPIHono();
 
@@ -81,7 +81,10 @@ ledgerRouter.openapi(godCheckRoute, async (c) => {
 	const db = getDb();
 	const result = await godCheck(db);
 
-	const currencies: Record<string, { total_debits: string; total_credits: string; balanced: boolean }> = {};
+	const currencies: Record<
+		string,
+		{ total_debits: string; total_credits: string; balanced: boolean }
+	> = {};
 	for (const [currency, data] of Object.entries(result.currencies)) {
 		currencies[currency] = {
 			total_debits: data.totalDebits.toString(),
