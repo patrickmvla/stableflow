@@ -1,0 +1,35 @@
+{
+	"name": "stableflow",
+	"private": true,
+	"workspaces": {
+		"packages": ["packages/*"],
+		"catalog": {
+			"@biomejs/biome": "2.4.2",
+			"@types/bun": "latest",
+			"typescript": "^5",
+			"ulidx": "^2",
+			"zod": "^4",
+			"hono": "^4",
+			"@hono/zod-openapi": "^0.18",
+			"@scalar/hono-api-reference": "^0.5",
+			"drizzle-orm": "^0.44",
+			"drizzle-kit": "^0.31",
+			"postgres": "^3"
+		}
+	},
+	"scripts": {
+		"check": "biome check",
+		"check:fix": "biome check --fix",
+		"format": "biome format --fix",
+		"dev": "bun run --filter @stableflow/api dev",
+		"dev:web": "bun run --filter @stableflow/web dev",
+		"test": "bun test --timeout 30000",
+		"db:generate": "bun run --filter @stableflow/api db:generate",
+		"db:migrate": "bun run --filter @stableflow/api db:migrate"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.4.2",
+		"@types/bun": "latest",
+		"typescript": "^5"
+	}
+}
