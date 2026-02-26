@@ -1,4 +1,4 @@
-import { z, type ZodType } from "zod";
+import { type ZodType, z } from "zod";
 
 // ID schemas
 export const AccountIdSchema = z.string().startsWith("acc_");

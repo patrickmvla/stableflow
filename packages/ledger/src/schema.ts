@@ -28,9 +28,7 @@ export const ledgerTransactions = pgTable(
 		referenceId: text("reference_id"),
 		createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 	},
-	(t) => [
-		index("idx_ledger_transactions_reference").on(t.referenceType, t.referenceId),
-	],
+	(t) => [index("idx_ledger_transactions_reference").on(t.referenceType, t.referenceId)],
 );
 
 export const ledgerEntries = pgTable(

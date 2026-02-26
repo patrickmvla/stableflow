@@ -1,8 +1,7 @@
+import type { Currency, Database } from "@stableflow/shared";
+import { generateId, LedgerImbalanceError, ValidationError } from "@stableflow/shared";
 import { eq, inArray, sql } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/postgres-js";
-import type { Database } from "@stableflow/shared";
-import { LedgerImbalanceError, ValidationError, generateId } from "@stableflow/shared";
-import type { Currency } from "@stableflow/shared";
+import type { drizzle } from "drizzle-orm/postgres-js";
 import { ledgerAccounts, ledgerEntries, ledgerTransactions } from "./schema.ts";
 
 type DrizzleDb = ReturnType<typeof drizzle>;
@@ -181,10 +180,8 @@ export async function getBalance(
 
 	const result = await (db as DrizzleDb)
 		.select({
-			totalDebits:
-				sql<bigint>`COALESCE(SUM(CASE WHEN direction = 'DEBIT' THEN amount ELSE 0 END), 0)::bigint`,
-			totalCredits:
-				sql<bigint>`COALESCE(SUM(CASE WHEN direction = 'CREDIT' THEN amount ELSE 0 END), 0)::bigint`,
+			totalDebits: sql<bigint>`COALESCE(SUM(CASE WHEN direction = 'DEBIT' THEN amount ELSE 0 END), 0)::bigint`,
+			totalCredits: sql<bigint>`COALESCE(SUM(CASE WHEN direction = 'CREDIT' THEN amount ELSE 0 END), 0)::bigint`,
 		})
 		.from(ledgerEntries)
 		.where(eq(ledgerEntries.accountId, accountId));
@@ -272,10 +269,8 @@ export async function godCheck(db: Database): Promise<GodCheckResult> {
 	const result = await (db as DrizzleDb)
 		.select({
 			currency: ledgerEntries.currency,
-			totalDebits:
-				sql<bigint>`SUM(CASE WHEN direction = 'DEBIT' THEN amount ELSE 0 END)::bigint`,
-			totalCredits:
-				sql<bigint>`SUM(CASE WHEN direction = 'CREDIT' THEN amount ELSE 0 END)::bigint`,
+			totalDebits: sql<bigint>`SUM(CASE WHEN direction = 'DEBIT' THEN amount ELSE 0 END)::bigint`,
+			totalCredits: sql<bigint>`SUM(CASE WHEN direction = 'CREDIT' THEN amount ELSE 0 END)::bigint`,
 		})
 		.from(ledgerEntries)
 		.groupBy(ledgerEntries.currency);

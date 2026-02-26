@@ -6,7 +6,9 @@ export const accountHolders = pgTable(
 		id: text("id").primaryKey(),
 		name: text("name").notNull(),
 		email: text("email").notNull(),
-		status: text("status", { enum: ["active", "suspended"] }).notNull().default("active"),
+		status: text("status", { enum: ["active", "suspended"] })
+			.notNull()
+			.default("active"),
 		metadata: jsonb("metadata").notNull().default({}),
 		createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 		updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
@@ -29,7 +31,9 @@ export const virtualAccounts = pgTable(
 		network: text("network"),
 		ledgerAccountId: text("ledger_account_id").notNull(),
 		holdsLedgerAccountId: text("holds_ledger_account_id").notNull(),
-		status: text("status", { enum: ["active", "frozen"] }).notNull().default("active"),
+		status: text("status", { enum: ["active", "frozen"] })
+			.notNull()
+			.default("active"),
 		createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
 	},
 	(t) => [
